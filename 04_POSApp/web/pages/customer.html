@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!--    http:://localhost:8080/pos_one/pages/customer.html-->
-<!--    http:://localhost:8080/pos_one/pages/customer-->
-
-<!--    http:://localhost:8080/pos_one/pages/customer-->
     <meta charset="UTF-8">
     <title>Customer Manage</title>
     <meta content="width=device-width initial-scale=1" name="viewport">
@@ -36,35 +32,37 @@
     <section class="row">
         <div class="col-12 col-lg-4">
             <h1>Customer Registration</h1>
-            <form>
+            <form id="CustomerForm">
                 <div class="form-group">
                     <label for="txtCustomerID">Customer ID</label>
-                    <input name="cusID" class="form-control" id="txtCustomerID"  type="text">
+                    <input class="form-control" id="txtCustomerID" required type="text" name="id">
                     <span class="control-error" id="lblcusid"></span>
                 </div>
                 <div class="form-group">
                     <label for="txtCustomerName">Customer Name</label>
-                    <input name="cusName" class="form-control" id="txtCustomerName" type="text">
+                    <input class="form-control" id="txtCustomerName" type="text" name="name">
                     <span class="control-error" id="lblcusname"></span>
                 </div>
                 <div class="form-group">
                     <label for="txtCustomerAddress">Customer Address</label>
-                    <input name="cusAddress" class="form-control" id="txtCustomerAddress" type="text">
+                    <input class="form-control" id="txtCustomerAddress" type="text" name="address">
                     <span class="control-error" id="lblcusaddress"></span>
                 </div>
                 <div class="form-group">
                     <label for="txtCustomerSalary">Customer Salary</label>
-                    <input name="cusSalary" class="form-control" id="txtCustomerSalary" type="text">
+                    <input class="form-control" id="txtCustomerSalary" type="text" name="salary">
                     <span class="control-error" id="lblcussalary"></span>
                 </div>
-                <div class="btn-group">
-                    <button formaction="customer?option=add" formmethod="post" class="btn btn-primary" id="btnCustomer">Save Customer</button>
-                    <button formaction="customer?option=delete" formmethod="post" class="btn btn-danger" id="btnCusDelete">Remove</button>
-                    <button formaction="customer?option=update" formmethod="post" class="btn btn-warning" id="btnUpdate">Update</button>
-                    <button formaction="customer" class="btn btn-success" id="btnGetAll">Get All</button>
-                    <button formaction="/pos_one" class="btn btn-danger" id="btn-clear1">Clear All</button>
-                </div>
             </form>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" id="btnCustomer" form="CustomerForm" formaction="../Customer">Save Customer</button>
+                <button class="btn btn-danger" id="btnCusDelete">Remove</button>
+                <button class="btn btn-warning" id="btnUpdate">Update</button>
+                <button class="btn btn-success" id="btnGetAll">Get All</button>
+                <button class="btn btn-danger" id="btn-clear1">Clear All</button>
+            </div>
+
         </div>
         <div class="col-12 col-lg-8 mt-3">
             <table class="table table-bordered table-hover">
@@ -88,56 +86,56 @@
 <script src="../assets/js/jquery-3.6.1.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
 
-<!--<script>-->
-<!--    //select the button and add an event to it-->
-<!--    document.getElementById("btnCustomer").addEventListener("click", function () {-->
+<script>
+    //select the button and add an event to it
+    document.getElementById("btnCustomer").addEventListener("click", function () {
 
-<!--        //get typed values of input fields-->
-<!--        let id = document.getElementById("txtCustomerID").value;-->
-<!--        let name = document.getElementById("txtCustomerName").value;-->
-<!--        let address = document.getElementById("txtCustomerAddress").value;-->
-<!--        let salary = document.getElementById("txtCustomerSalary").value;-->
+        //get typed values of input fields
+        let id = document.getElementById("txtCustomerID").value;
+        let name = document.getElementById("txtCustomerName").value;
+        let address = document.getElementById("txtCustomerAddress").value;
+        let salary = document.getElementById("txtCustomerSalary").value;
 
-<!--        //let's print it-->
-<!--        console.log(id,name,address,salary);-->
+        //let's print it
+        console.log(id,name,address,salary);
 
-<!--        //catch the table body-->
-<!--        let tBody=document.getElementById("tblCustomer");-->
+        //catch the table body
+        let tBody=document.getElementById("tblCustomer");
 
-<!--        // let's see how we should insert a table row using html format-->
-<!--        //<tr>-->
-<!--        // <td>id</td>-->
-<!--        // <td>name</td>-->
-<!--        // <td>address</td>-->
-<!--        // <td>salary</td>-->
-<!--        // </tr>-->
+        // let's see how we should insert a table row using html format
+        //<tr>
+        // <td>id</td>
+        // <td>name</td>
+        // <td>address</td>
+        // <td>salary</td>
+        // </tr>
 
-<!--        //ok then, let's create the above row-->
-<!--       let tr= document.createElement("tr");-->
+        //ok then, let's create the above row
+       let tr= document.createElement("tr");
 
-<!--       //let's create another four columns-->
-<!--       let col1= document.createElement("td");-->
-<!--       let col2= document.createElement("td");-->
-<!--       let col3= document.createElement("td");-->
-<!--       let col4= document.createElement("td");-->
+       //let's create another four columns
+       let col1= document.createElement("td");
+       let col2= document.createElement("td");
+       let col3= document.createElement("td");
+       let col4= document.createElement("td");
 
-<!--       //set input fields values to the above created columns-->
-<!--        col1.textContent=id;-->
-<!--        col2.textContent=name;-->
-<!--        col3.textContent=address;-->
-<!--        col4.textContent=salary;-->
+       //set input fields values to the above created columns
+        col1.textContent=id;
+        col2.textContent=name;
+        col3.textContent=address;
+        col4.textContent=salary;
 
-<!--        //set 4 columns to the previously created row-->
-<!--        tr.appendChild(col1);-->
-<!--        tr.appendChild(col2);-->
-<!--        tr.appendChild(col3);-->
-<!--        tr.appendChild(col4);-->
+        //set 4 columns to the previously created row
+        tr.appendChild(col1);
+        tr.appendChild(col2);
+        tr.appendChild(col3);
+        tr.appendChild(col4);
 
-<!--        //set the row to the table body-->
-<!--        tBody.appendChild(tr);-->
+        //set the row to the table body
+        tBody.appendChild(tr);
 
-<!--        //Work done;-->
-<!--    });-->
-<!--</script>-->
+        //Work done;
+    });
+</script>
 </body>
 </html>
