@@ -1,5 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dto.CustomerDTO" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,12 +21,27 @@
 </head>
 <body>
 <%
-    ArrayList<CustomerDTO> allCustomers = new ArrayList<>();
-    allCustomers.add(new CustomerDTO("C001","Savii","Matara",100000));
-    allCustomers.add(new CustomerDTO("C002","Sewmi","Galle",100000));
-    allCustomers.add(new CustomerDTO("C003","Kamal","Colombo",75000));
-    allCustomers.add(new CustomerDTO("C004","Nimal","Panadura",50000));
-    allCustomers.add(new CustomerDTO("C005","Sunil","Kandy",25000));
+//    ArrayList<CustomerDTO> allCustomers = new ArrayList<>();
+//    allCustomers.add(new CustomerDTO("C001","Savii","Matara",100000));
+//    allCustomers.add(new CustomerDTO("C002","Sewmi","Galle",100000));
+//    allCustomers.add(new CustomerDTO("C003","Kamal","Colombo",75000));
+//    allCustomers.add(new CustomerDTO("C004","Nimal","Panadura",50000));
+//    allCustomers.add(new CustomerDTO("C005","Sunil","Kandy",25000));
+
+//    initialize database connection
+    Class.forName("com.mysql.jdbc.Driver");
+    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/posdb", "root", "1234");
+    PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer");
+    ResultSet rst = pstm.executeQuery();
+
+    List<CustomerDTO> allCustomers = new ArrayList<>();
+    while (rst.next()) {
+        String id = rst.getString("id");
+        String name = rst.getString("name");
+        String address = rst.getString("address");
+        double salary = rst.getDouble("salary");
+        allCustomers.add(new CustomerDTO(id, name, address, salary));
+    }
 %>
 <!--header-->
 <header class="jumbotron bg-primary text-white p-3">
@@ -70,7 +87,7 @@
                 <button class="btn btn-primary" id="btnCustomer" form="CustomerForm" formaction="../Customer" formmethod="post">Save Customer</button>
                 <button class="btn btn-danger" id="btnCusDelete">Remove</button>
                 <button class="btn btn-warning" id="btnUpdate">Update</button>
-                <button class="btn btn-success" id="btnGetAll">Get All</button>
+                <button class="btn btn-success" id="btnGetAll" form="CustomerForm" formaction="customer.jsp">Get All</button>
                 <button class="btn btn-danger" id="btn-clear1">Clear All</button>
             </div>
 
