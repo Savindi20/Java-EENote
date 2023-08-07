@@ -1,3 +1,6 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="dto.CustomerDTO" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +18,14 @@
     </style>
 </head>
 <body>
+<%
+    ArrayList<CustomerDTO> allCustomers = new ArrayList<>();
+    allCustomers.add(new CustomerDTO("C001","Savii","Matara",100000));
+    allCustomers.add(new CustomerDTO("C002","Sewmi","Galle",100000));
+    allCustomers.add(new CustomerDTO("C003","Kamal","Colombo",75000));
+    allCustomers.add(new CustomerDTO("C004","Nimal","Panadura",50000));
+    allCustomers.add(new CustomerDTO("C005","Sunil","Kandy",25000));
+%>
 <!--header-->
 <header class="jumbotron bg-primary text-white p-3">
     <h1 class="position-absolute" id="nav"></h1>
@@ -75,7 +86,18 @@
                 </tr>
                 </thead>
                 <tbody id="tblCustomer">
-
+                <%
+                    for (CustomerDTO customer : allCustomers) {
+                %>
+                <tr>
+                    <td><%=customer.getId()%></td>
+                    <td><%=customer.getName()%></td>
+                    <td><%=customer.getAddress()%></td>
+                    <td><%=customer.getSalary()%></td>
+                </tr>
+                <%
+                    }
+                %>
                 </tbody>
             </table>
         </div>
