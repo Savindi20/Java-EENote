@@ -31,8 +31,9 @@ public class CustomerServlet extends HttpServlet {
             pstm.setObject(4,salary);
             boolean b = pstm.executeUpdate() > 0;
 
-            PrintWriter writer = resp.getWriter();
-            writer.write("<h1>Customer added state : "+b+"</h1>");
+//            PrintWriter writer = resp.getWriter();
+//            writer.write("<h1>Customer added state : "+b+"</h1>");
+            resp.sendRedirect("customer.jsp");
 
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
@@ -56,8 +57,9 @@ public class CustomerServlet extends HttpServlet {
             pstm.setObject(4,salary);
             boolean b = pstm.executeUpdate() > 0;
 
-            PrintWriter writer = resp.getWriter();
-            writer.write("<h1>Customer added state : "+b+"</h1>");
+//            PrintWriter writer = resp.getWriter();
+//            writer.write("<h1>Customer added state : "+b+"</h1>");
+            resp.sendRedirect("customer.jsp");
 
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);

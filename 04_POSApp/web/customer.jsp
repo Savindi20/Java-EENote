@@ -9,8 +9,8 @@
     <meta charset="UTF-8">
     <title>Customer Manage</title>
     <meta content="width=device-width initial-scale=1" name="viewport">
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../assets/css/styles.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/styles.css" rel="stylesheet">
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
           integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" rel="stylesheet">
     <style>
@@ -47,7 +47,7 @@
 <header class="jumbotron bg-primary text-white p-3">
     <h1 class="position-absolute" id="nav"></h1>
     <ul class="list-group list-group-horizontal text-danger justify-content-end font-weight-bold">
-        <li class="list-group-item bg-white" id="lnkHome"><a href="../index.html">Home</a></li>
+        <li class="list-group-item bg-white" id="lnkHome"><a href="index.html">Home</a></li>
         <li class="list-group-item bg-danger text-white" id="lnkCustomer"><a class="text-white" href="customer.jsp">Customer</a>
         </li>
         <li class="list-group-item bg-white" id="lnkItem"><a href="item.html">Item</a></li>
@@ -84,7 +84,7 @@
             </form>
 
             <div class="btn-group">
-                <button class="btn btn-primary" id="btnCustomer" form="CustomerForm" formaction="../Customer" formmethod="post">Save Customer</button>
+                <button class="btn btn-primary" id="btnCustomer" form="CustomerForm" formaction="Customer" formmethod="post">Save Customer</button>
                 <button class="btn btn-danger" id="btnCusDelete">Remove</button>
                 <button class="btn btn-warning" id="btnUpdate">Update</button>
                 <button class="btn btn-success" id="btnGetAll" form="CustomerForm" formaction="customer.jsp">Get All</button>
@@ -122,8 +122,8 @@
 </main>
 
 
-<script src="../assets/js/jquery-3.6.1.min.js"></script>
-<script src="../assets/js/bootstrap.min.js"></script>
+<script src="assets/js/jquery-3.6.1.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 
 <script>
     //select the button and add an event to it
