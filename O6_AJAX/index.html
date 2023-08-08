@@ -87,18 +87,23 @@
 
         // initializing XMLHttpRequest Object
         var http = new XMLHttpRequest();
-        console.log("first ",http.readyState);// 0 - uninitialized
+        console.log("first ",http.readyState);// 0 - uninitialized // 0
 
         //open the request
-        http.open("get",'db/db.txt');
-        console.log("second ",http.readyState);// 1 - loading
+        //Synchronous = Blocking -(Normal behaviour)
+        //Asynchronous = Non-Blocking -(Event Loop)
+        http.open("get",'db/db.txt',false);
+        //false = synchronous
+        //true = Asynchronous
+
+        console.log("second ",http.readyState);// 1 - loading // 1 - loading
 
         //send the request
         http.send();
-        console.log("third ",http.readyState);// 1 - loading
+        console.log("third ",http.readyState);// 1 - loading // 4 - completed (false dammt passe)
 
-        console.log("Response",http.responseText)
-        console.log("forth ",http.readyState);// 1 - loading
+        console.log("Response",http.responseText) // response available
+        console.log("forth ",http.readyState);// 1 - loading // 4 - completed
     });
 </script>
 </body>
