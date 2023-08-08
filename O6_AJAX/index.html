@@ -54,7 +54,7 @@
                 </div>
             </form>
             <div class="btn-group">
-                <button class="btn btn-primary" id="btnItem" form="itemForm" formaction="db/db.txt">Add Item</button>
+                <button type="button" class="btn btn-primary" id="btnItem" form="itemForm" formaction="db/db.txt">Add Item</button>
                 <button class="btn btn-danger" id="btnItemDelete">Remove</button>
                 <button class="btn btn-warning" id="btnItemUpdate">Update</button>
                 <button class="btn btn-success">Get All</button>
@@ -81,5 +81,25 @@
 
 </main>
 
+<script src="assets/js/jquery-3.6.1.min.js"></script>
+<script>
+    $("#btnItem").click(function(){
+
+        // initializing XMLHttpRequest Object
+        var http = new XMLHttpRequest();
+        console.log("first ",http.readyState);// 0 - uninitialized
+
+        //open the request
+        http.open("get",'db/db.txt');
+        console.log("second ",http.readyState);// 1 - loading
+
+        //send the request
+        http.send();
+        console.log("third ",http.readyState);// 1 - loading
+
+        console.log("Response",http.responseText)
+        console.log("forth ",http.readyState);// 1 - loading
+    });
+</script>
 </body>
 </html>
