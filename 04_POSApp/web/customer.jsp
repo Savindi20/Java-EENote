@@ -84,9 +84,9 @@
             </form>
 
             <div class="btn-group">
-                <button class="btn btn-primary" id="btnCustomer" form="CustomerForm" formaction="Customer" formmethod="post">Save Customer</button>
-                <button class="btn btn-danger" id="btnCusDelete">Remove</button>
-                <button class="btn btn-warning" id="btnUpdate">Update</button>
+                <button class="btn btn-primary" id="btnCustomer" form="CustomerForm" formaction="Customer?option=add" formmethod="post">Save Customer</button>
+                <button class="btn btn-danger" id="btnCusDelete" form="CustomerForm" formaction="Customer?option=remove" formmethod="post">Remove</button>
+                <button class="btn btn-warning" id="btnUpdate" form="CustomerForm" formaction="Customer?option=update" formmethod="post">Update</button>
                 <button class="btn btn-success" id="btnGetAll" form="CustomerForm" formaction="customer.jsp">Get All</button>
                 <button class="btn btn-danger" id="btn-clear1">Clear All</button>
             </div>
