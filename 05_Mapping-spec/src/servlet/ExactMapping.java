@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/customer")
-public class CustomerServlet extends HttpServlet {
+public class ExactMapping extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        resp.getWriter().write("exact mapping invoked");
     }
 }
