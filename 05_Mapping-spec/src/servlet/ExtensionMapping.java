@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/customer") //http://localhost:8080/05_mapping/customer
-public class ExactMapping extends HttpServlet {
+@WebServlet(urlPatterns = "*.jpg") //http://localhost:8080/05_mapping/hjjj.jpg
+public class ExtensionMapping extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().write("Exact Mapping Invoked");
+        resp.getWriter().write("Extension Mapping Invoked");
     }
 }
