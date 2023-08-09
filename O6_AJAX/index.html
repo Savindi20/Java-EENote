@@ -114,15 +114,31 @@
         //     }
         // }
 
-        let http = new XMLHttpRequest();
-        http.open("get","db/db.txt");
-        http.send();
-        http.onreadystatechange=function(){
-            if(http.readyState==4 && http.status==200){ //if the request complete
-                console.log(http.responseText);
-                $("#display").text(http.responseText);
-            }
-        }
+
+        // 02. send sample request using XMLHttpRequest Object
+
+        // let http = new XMLHttpRequest();
+        // http.open("get","db/db.txt");
+        // http.send();
+        // http.onreadystatechange=function(){
+        //     if(http.readyState==4 && http.status==200){ //if the request complete
+        //         console.log(http.responseText);
+        //         $("#display").text(http.responseText);
+        //     }
+        // }
+
+        //03. send ajax request using JQuery
+
+        // console.log("Request started");
+        // $.ajax({
+        //     url:"db/db.txt",
+        //     async:false,    // now this ajax request synchronous
+        //     success:function(res){
+        //         console.log(res);
+        //         $("#display").text(res);
+        //     }
+        // });
+        // console.log("Request ended");
     });
 </script>
 </body>
