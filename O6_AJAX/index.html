@@ -54,11 +54,9 @@
                 </div>
             </form>
             <div class="btn-group">
-                <button type="button" class="btn btn-primary" id="btnItem" form="itemForm" formaction="db/db.txt">Add Item</button>
-                <button class="btn btn-danger" id="btnItemDelete">Remove</button>
-                <button class="btn btn-warning" id="btnItemUpdate">Update</button>
-                <button class="btn btn-success" id="btnGetAll">Get All</button>
-                <button class="btn btn-danger" id="btn-clear">Clear All</button>
+                <button type="button" class="btn btn-primary" id="btnText">Test Req</button>
+                <button class="btn btn-danger" id="btnXML">XML Req</button>
+                <button class="btn btn-success" id="btnJSON">Req</button>
             </div>
 
         </div>
@@ -83,65 +81,66 @@
 
 <script src="assets/js/jquery-3.6.1.min.js"></script>
 <script>
-    $("#btnItem").click(function(){
+    // $("#btnText").click(function(){
+    //
+    //     // // initializing XMLHttpRequest Object
+    //     // var http = new XMLHttpRequest();
+    //     // console.log("first ",http.readyState);// 0 - uninitialized // 0
+    //     //
+    //     // //open the request
+    //     // //Synchronous = Blocking -(Normal behaviour) - http.open("get",'db/db.txt',false);
+    //     // //Asynchronous = Non-Blocking -(Event Loop)
+    //     // http.open("get",'db/db.txt');
+    //     // //false = synchronous
+    //     // //true = Asynchronous
+    //     //
+    //     // console.log("second ",http.readyState);// 1 - loading // 1 - loading
+    //     //
+    //     // //send the request
+    //     // http.send();
+    //     // console.log("third ",http.readyState);// 1 - loading // 4 - completed (false dammt passe)
+    //     //
+    //     // console.log("Response",http.responseText) // response available
+    //     // console.log("forth ",http.readyState);// 1 - loading // 4 - completed
+    //     //
+    //     // http.onreadystatechange=function(){
+    //     //     console.log(http.readyState);
+    //     //     console.log("on ready stage change event invoked")
+    //     //
+    //     //     if(http.readyState==4){
+    //     //         console.log("Response",http.responseText)
+    //     //     }
+    //     // }
+    //
+    //
+    //     // 02. send sample request using XMLHttpRequest Object
+    //
+    //     // let http = new XMLHttpRequest();
+    //     // http.open("get","db/db.txt");
+    //     // http.send();
+    //     // http.onreadystatechange=function(){
+    //     //     if(http.readyState==4 && http.status==200){ //if the request complete
+    //     //         console.log(http.responseText);
+    //     //         $("#display").text(http.responseText);
+    //     //     }
+    //     // }
+    //
+    //     //03. send ajax request using JQuery
+    //
+    //     // console.log("Request started");
+    //     // $.ajax({
+    //     //     url:"db/db.txt",
+    //     //     async:false,    // now this ajax request synchronous
+    //     //     success:function(res){
+    //     //         console.log(res);
+    //     //         $("#display").text(res);
+    //     //     }
+    //     // });
+    //     // console.log("Request ended");
+    // });
 
-        // // initializing XMLHttpRequest Object
-        // var http = new XMLHttpRequest();
-        // console.log("first ",http.readyState);// 0 - uninitialized // 0
-        //
-        // //open the request
-        // //Synchronous = Blocking -(Normal behaviour) - http.open("get",'db/db.txt',false);
-        // //Asynchronous = Non-Blocking -(Event Loop)
-        // http.open("get",'db/db.txt');
-        // //false = synchronous
-        // //true = Asynchronous
-        //
-        // console.log("second ",http.readyState);// 1 - loading // 1 - loading
-        //
-        // //send the request
-        // http.send();
-        // console.log("third ",http.readyState);// 1 - loading // 4 - completed (false dammt passe)
-        //
-        // console.log("Response",http.responseText) // response available
-        // console.log("forth ",http.readyState);// 1 - loading // 4 - completed
-        //
-        // http.onreadystatechange=function(){
-        //     console.log(http.readyState);
-        //     console.log("on ready stage change event invoked")
-        //
-        //     if(http.readyState==4){
-        //         console.log("Response",http.responseText)
-        //     }
-        // }
-
-
-        // 02. send sample request using XMLHttpRequest Object
-
-        // let http = new XMLHttpRequest();
-        // http.open("get","db/db.txt");
-        // http.send();
-        // http.onreadystatechange=function(){
-        //     if(http.readyState==4 && http.status==200){ //if the request complete
-        //         console.log(http.responseText);
-        //         $("#display").text(http.responseText);
-        //     }
-        // }
-
-        //03. send ajax request using JQuery
-
-        // console.log("Request started");
-        // $.ajax({
-        //     url:"db/db.txt",
-        //     async:false,    // now this ajax request synchronous
-        //     success:function(res){
-        //         console.log(res);
-        //         $("#display").text(res);
-        //     }
-        // });
-        // console.log("Request ended");
-    });
-
-    $("#btnGetAll").click(function(){
+    // send req to db.txt
+    $("#btnText").click(function(){
         $("#tblItem").empty();
         $.ajax({
             url:'db/db.txt',
@@ -149,6 +148,27 @@
                 let split = res.split(" ");
                 var row = `<tr><td>${split[0]}</td><td>${split[1]}</td><td>${split[2]}</td><td>${split[3]}</td></tr>`;
                 $("#tblItem").append(row);
+            }
+        });
+    });
+
+    // send req to XML file
+    $("#btnXML").click(function(){
+        $("#tblItem").empty();
+        $.ajax({
+            url:'db/db.xml',
+            success:function(res){
+                $("#tblItem").empty();
+                let itemCount = $(res).children().children().length;
+                for (var i=0; i<itemCount; i++) {
+                    let item = $(res).children().children().eq(i);
+                    let code = item.children(":eq(0)").text();
+                    let name = item.children(":eq(1)").text();
+                    let qty = item.children(":eq(2)").text();
+                    let unitPrice = item.children(":eq(3)").text();
+                    var row = `<tr><td>${code}</td><td>${name}</td><td>${qty}</td><td>${unitPrice}</td></tr>`;
+                    $("#tblItem").append(row);
+                }
             }
         });
     });

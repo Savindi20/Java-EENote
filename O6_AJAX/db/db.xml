@@ -11,4 +11,22 @@
         <qty>300</qty>
         <unitPrice>450</unitPrice>
     </item>
+    <item>
+        <code>I003</code>
+        <name>Sugar</name>
+        <qty>500</qty>
+        <unitPrice>500</unitPrice>
+    </item>
+    <item>
+        <code>I004</code>
+        <name>Bread</name>
+        <qty>100</qty>
+        <unitPrice>150</unitPrice>
+    </item>
+    <item>
+        <code>I005</code>
+        <name>LifeBoy</name>
+        <qty>300</qty>
+        <unitPrice>350</unitPrice>
+    </item>
 </items>
