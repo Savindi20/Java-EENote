@@ -85,25 +85,43 @@
 <script>
     $("#btnItem").click(function(){
 
-        // initializing XMLHttpRequest Object
-        var http = new XMLHttpRequest();
-        console.log("first ",http.readyState);// 0 - uninitialized // 0
+        // // initializing XMLHttpRequest Object
+        // var http = new XMLHttpRequest();
+        // console.log("first ",http.readyState);// 0 - uninitialized // 0
+        //
+        // //open the request
+        // //Synchronous = Blocking -(Normal behaviour) - http.open("get",'db/db.txt',false);
+        // //Asynchronous = Non-Blocking -(Event Loop)
+        // http.open("get",'db/db.txt');
+        // //false = synchronous
+        // //true = Asynchronous
+        //
+        // console.log("second ",http.readyState);// 1 - loading // 1 - loading
+        //
+        // //send the request
+        // http.send();
+        // console.log("third ",http.readyState);// 1 - loading // 4 - completed (false dammt passe)
+        //
+        // console.log("Response",http.responseText) // response available
+        // console.log("forth ",http.readyState);// 1 - loading // 4 - completed
+        //
+        // http.onreadystatechange=function(){
+        //     console.log(http.readyState);
+        //     console.log("on ready stage change event invoked")
+        //
+        //     if(http.readyState==4){
+        //         console.log("Response",http.responseText)
+        //     }
+        // }
 
-        //open the request
-        //Synchronous = Blocking -(Normal behaviour)
-        //Asynchronous = Non-Blocking -(Event Loop)
-        http.open("get",'db/db.txt',false);
-        //false = synchronous
-        //true = Asynchronous
-
-        console.log("second ",http.readyState);// 1 - loading // 1 - loading
-
-        //send the request
+        let http = new XMLHttpRequest();
+        http.open("get","db/db.txt");
         http.send();
-        console.log("third ",http.readyState);// 1 - loading // 4 - completed (false dammt passe)
-
-        console.log("Response",http.responseText) // response available
-        console.log("forth ",http.readyState);// 1 - loading // 4 - completed
+        http.onreadystatechange=function(){
+            if(http.readyState==4 && http.status==200){ //if the request complete
+                console.log(http.responseText);
+            }
+        }
     });
 </script>
 </body>
