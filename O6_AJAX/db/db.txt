@@ -1,1 +1,1 @@
-C001 Savindi Matara 150000
+I001 Lux 100 250

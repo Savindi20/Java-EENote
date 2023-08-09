@@ -57,7 +57,7 @@
                 <button type="button" class="btn btn-primary" id="btnItem" form="itemForm" formaction="db/db.txt">Add Item</button>
                 <button class="btn btn-danger" id="btnItemDelete">Remove</button>
                 <button class="btn btn-warning" id="btnItemUpdate">Update</button>
-                <button class="btn btn-success">Get All</button>
+                <button class="btn btn-success" id="btnGetAll">Get All</button>
                 <button class="btn btn-danger" id="btn-clear">Clear All</button>
             </div>
 
@@ -140,6 +140,19 @@
         // });
         // console.log("Request ended");
     });
+
+    $("#btnGetAll").click(function(){
+        $("#tblItem").empty();
+        $.ajax({
+            url:'db/db.txt',
+            success:function(res){
+                let split = res.split(" ");
+                var row = `<tr><td>${split[0]}</td><td>${split[1]}</td><td>${split[2]}</td><td>${split[3]}</td></tr>`;
+                $("#tblItem").append(row);
+            }
+        });
+    });
+
 </script>
 </body>
 </html>
