@@ -56,7 +56,7 @@
             <div class="btn-group">
                 <button type="button" class="btn btn-primary" id="btnText">Test Req</button>
                 <button class="btn btn-danger" id="btnXML">XML Req</button>
-                <button class="btn btn-success" id="btnJSON">Req</button>
+                <button class="btn btn-success" id="btnJSON">JSON Req</button>
             </div>
 
         </div>
@@ -167,6 +167,21 @@
                     let qty = item.children(":eq(2)").text();
                     let unitPrice = item.children(":eq(3)").text();
                     var row = `<tr><td>${code}</td><td>${name}</td><td>${qty}</td><td>${unitPrice}</td></tr>`;
+                    $("#tblItem").append(row);
+                }
+            }
+        });
+    });
+
+    // send req to JSON file
+    $("#btnJSON").click(function(){
+        $("#tblItem").empty();
+        $.ajax({
+            url:'db/db.json',
+            success:function(res){
+                $("#tblItem").empty();
+                for (let c of res) {
+                    var row = `<tr><td>${c.code}</td><td>${c.name}</td><td>${c.qty}</td><td>${c.unitPrice}</td></tr>`;
                     $("#tblItem").append(row);
                 }
             }
