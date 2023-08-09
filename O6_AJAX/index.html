@@ -70,8 +70,13 @@
                     <th>Item Price</th>
                 </tr>
                 </thead>
+                <tr id="loader" style="display: none; text-align: center">
+                    <td>
+                        <img src="assets/load.gif" alt="" style="width: 400px; height: 100px">
+                        <h4>loading..!</h4>
+                    </td>
+                </tr>
                 <tbody id="tblItem">
-
                 </tbody>
             </table>
         </div>
@@ -154,11 +159,12 @@
 
     // send req to XML file
     $("#btnXML").click(function(){
+        $("#loader").css('display','inline-block');
         $("#tblItem").empty();
         $.ajax({
             url:'db/db.xml',
             success:function(res){
-                $("#tblItem").empty();
+                $("#loader").css('display','none');
                 let itemCount = $(res).children().children().length;
                 for (var i=0; i<itemCount; i++) {
                     let item = $(res).children().children().eq(i);
@@ -175,11 +181,12 @@
 
     // send req to JSON file
     $("#btnJSON").click(function(){
+        $("#loader").css('display','inline-block');
         $("#tblItem").empty();
         $.ajax({
             url:'db/db.json',
             success:function(res){
-                $("#tblItem").empty();
+                $("#loader").css('display','none');
                 for (let c of res) {
                     var row = `<tr><td>${c.code}</td><td>${c.name}</td><td>${c.qty}</td><td>${c.unitPrice}</td></tr>`;
                     $("#tblItem").append(row);
