@@ -30,7 +30,7 @@
 <main class="container-fluid" id="itemContent">
     <section class="row">
         <div class="col-12 col-lg-4">
-            <h1>Item Form</h1>
+            <h1 id="display">Item Form</h1>
             <form id="itemForm">
                 <div class="form-group">
                     <label for="itemCode">Item Code</label>
@@ -120,6 +120,7 @@
         http.onreadystatechange=function(){
             if(http.readyState==4 && http.status==200){ //if the request complete
                 console.log(http.responseText);
+                $("#display").text(http.responseText);
             }
         }
     });
