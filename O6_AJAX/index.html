@@ -159,12 +159,12 @@
 
     // send req to XML file
     $("#btnXML").click(function(){
-        $("#loader").css('display','inline-block');
+        $("#loader").css('display','inline-block'); //enable the loader
         $("#tblItem").empty();
         $.ajax({
             url:'db/db.xml',
             success:function(res){
-                $("#loader").css('display','none');
+                $("#loader").css('display','none'); //disable the loader
                 let itemCount = $(res).children().children().length;
                 for (var i=0; i<itemCount; i++) {
                     let item = $(res).children().children().eq(i);
