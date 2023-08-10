@@ -37,7 +37,7 @@
     <h1 class="position-absolute" id="nav"></h1>
     <ul class="list-group list-group-horizontal text-danger justify-content-end font-weight-bold">
         <li class="list-group-item bg-white" id="lnkHome"><a href="index.html">Home</a></li>
-        <li class="list-group-item bg-danger text-white" id="lnkCustomer"><a class="text-white" href="Customer">Customer</a>
+        <li class="list-group-item bg-danger text-white" id="lnkCustomer"><a class="text-white" href="customer.jsp">Customer</a>
         </li>
         <li class="list-group-item bg-white" id="lnkItem"><a href="item.html">Item</a></li>
         <li class="list-group-item bg-white" id="lnkOrders"><a href="purchase-order.html">Orders</a></li>
@@ -73,10 +73,10 @@
             </form>
 
             <div class="btn-group">
-                <button class="btn btn-primary" id="btnCustomer" form="CustomerForm" formaction="Customer?option=add" formmethod="post">Save Customer</button>
-                <button class="btn btn-danger" id="btnCusDelete" form="CustomerForm" formaction="Customer?option=remove" formmethod="post">Remove</button>
-                <button class="btn btn-warning" id="btnUpdate" form="CustomerForm" formaction="Customer?option=update" formmethod="post">Update</button>
-                <button class="btn btn-success" id="btnGetAll" form="CustomerForm" formaction="Customer">Get All</button>
+                <button class="btn btn-primary" type="button" id="btnCustomer">Save Customer</button>
+                <button class="btn btn-danger" type="button" id="btnCusDelete">Remove</button>
+                <button class="btn btn-warning" type="button" id="btnUpdate">Update</button>
+                <button class="btn btn-success" type="button" id="btnGetAll">Get All</button>
                 <button class="btn btn-danger" id="btn-clear1">Clear All</button>
             </div>
 
@@ -118,54 +118,54 @@
 
 <script>
     //select the button and add an event to it
-    document.getElementById("btnCustomer").addEventListener("click", function () {
-
-        //get typed values of input fields
-        let id = document.getElementById("txtCustomerID").value;
-        let name = document.getElementById("txtCustomerName").value;
-        let address = document.getElementById("txtCustomerAddress").value;
-        let salary = document.getElementById("txtCustomerSalary").value;
-
-        //let's print it
-        console.log(id,name,address,salary);
-
-        //catch the table body
-        let tBody=document.getElementById("tblCustomer");
-
-        // let's see how we should insert a table row using html format
-        //<tr>
-        // <td>id</td>
-        // <td>name</td>
-        // <td>address</td>
-        // <td>salary</td>
-        // </tr>
-
-        //ok then, let's create the above row
-       let tr= document.createElement("tr");
-
-       //let's create another four columns
-       let col1= document.createElement("td");
-       let col2= document.createElement("td");
-       let col3= document.createElement("td");
-       let col4= document.createElement("td");
-
-       //set input fields values to the above created columns
-        col1.textContent=id;
-        col2.textContent=name;
-        col3.textContent=address;
-        col4.textContent=salary;
-
-        //set 4 columns to the previously created row
-        tr.appendChild(col1);
-        tr.appendChild(col2);
-        tr.appendChild(col3);
-        tr.appendChild(col4);
-
-        //set the row to the table body
-        tBody.appendChild(tr);
-
-        //Work done;
-    });
+    // document.getElementById("btnCustomer").addEventListener("click", function () {
+    //
+    //     //get typed values of input fields
+    //     let id = document.getElementById("txtCustomerID").value;
+    //     let name = document.getElementById("txtCustomerName").value;
+    //     let address = document.getElementById("txtCustomerAddress").value;
+    //     let salary = document.getElementById("txtCustomerSalary").value;
+    //
+    //     //let's print it
+    //     console.log(id,name,address,salary);
+    //
+    //     //catch the table body
+    //     let tBody=document.getElementById("tblCustomer");
+    //
+    //     // let's see how we should insert a table row using html format
+    //     //<tr>
+    //     // <td>id</td>
+    //     // <td>name</td>
+    //     // <td>address</td>
+    //     // <td>salary</td>
+    //     // </tr>
+    //
+    //     //ok then, let's create the above row
+    //    let tr= document.createElement("tr");
+    //
+    //    //let's create another four columns
+    //    let col1= document.createElement("td");
+    //    let col2= document.createElement("td");
+    //    let col3= document.createElement("td");
+    //    let col4= document.createElement("td");
+    //
+    //    //set input fields values to the above created columns
+    //     col1.textContent=id;
+    //     col2.textContent=name;
+    //     col3.textContent=address;
+    //     col4.textContent=salary;
+    //
+    //     //set 4 columns to the previously created row
+    //     tr.appendChild(col1);
+    //     tr.appendChild(col2);
+    //     tr.appendChild(col3);
+    //     tr.appendChild(col4);
+    //
+    //     //set the row to the table body
+    //     tBody.appendChild(tr);
+    //
+    //     //Work done;
+    // });
     function bindRowClickEvents(){
         $("#tblCustomer>tr").click(function (){
             let id = $(this).children(":eq(0)").text();
@@ -180,6 +180,48 @@
         });
     }
     bindRowClickEvents();
+
+    $("#btnCustomer").click(function(){
+        let formData = $("#CustomerForm").serialize();
+        $.ajax({
+            url:"Customer?option=add",
+            method:"post",
+            data:formData,
+            success:function(res){
+            }
+        });
+    });
+
+    $("#btnCusDelete").click(function(){
+        let id = $("#txtCustomerID").val();
+        $.ajax({
+            url:"Customer?id="+id+"&option=remove",
+            method:"post",
+            success:function(res){
+            }
+        });
+    });
+
+    $("#btnUpdate").click(function(){
+        let formData = $("#CustomerForm").serialize();
+        $.ajax({
+            url:"Customer?option=update",
+            method:"post",
+            data:formData,
+            success:function(res){
+            }
+        });
+    });
+
+    $("#btnGetAll").click(function(){
+        $.ajax({
+            url:"Customer",
+            success:function(res){
+                console.log(res);
+            }
+        });
+    });
+
 </script>
 </body>
 </html>
