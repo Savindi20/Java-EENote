@@ -117,55 +117,14 @@
 <script src="assets/js/bootstrap.min.js"></script>
 
 <script>
-    //select the button and add an event to it
-    // document.getElementById("btnCustomer").addEventListener("click", function () {
-    //
-    //     //get typed values of input fields
-    //     let id = document.getElementById("txtCustomerID").value;
-    //     let name = document.getElementById("txtCustomerName").value;
-    //     let address = document.getElementById("txtCustomerAddress").value;
-    //     let salary = document.getElementById("txtCustomerSalary").value;
-    //
-    //     //let's print it
-    //     console.log(id,name,address,salary);
-    //
-    //     //catch the table body
-    //     let tBody=document.getElementById("tblCustomer");
-    //
-    //     // let's see how we should insert a table row using html format
-    //     //<tr>
-    //     // <td>id</td>
-    //     // <td>name</td>
-    //     // <td>address</td>
-    //     // <td>salary</td>
-    //     // </tr>
-    //
-    //     //ok then, let's create the above row
-    //    let tr= document.createElement("tr");
-    //
-    //    //let's create another four columns
-    //    let col1= document.createElement("td");
-    //    let col2= document.createElement("td");
-    //    let col3= document.createElement("td");
-    //    let col4= document.createElement("td");
-    //
-    //    //set input fields values to the above created columns
-    //     col1.textContent=id;
-    //     col2.textContent=name;
-    //     col3.textContent=address;
-    //     col4.textContent=salary;
-    //
-    //     //set 4 columns to the previously created row
-    //     tr.appendChild(col1);
-    //     tr.appendChild(col2);
-    //     tr.appendChild(col3);
-    //     tr.appendChild(col4);
-    //
-    //     //set the row to the table body
-    //     tBody.appendChild(tr);
-    //
-    //     //Work done;
-    // });
+    getAllCustomers();
+
+    function setTextfieldValues(id,name,address,salary){
+        $('#txtCustomerID').val(id);
+        $('#txtCustomerName').val(name);
+        $('#txtCustomerAddress').val(address);
+        $('#txtCustomerSalary').val(salary);
+    }
     function bindRowClickEvents(){
         $("#tblCustomer>tr").click(function (){
             let id = $(this).children(":eq(0)").text();
@@ -179,7 +138,6 @@
             $('#txtCustomerSalary').val(salary);
         });
     }
-    bindRowClickEvents();
 
     $("#btnCustomer").click(function(){
         let formData = $("#CustomerForm").serialize();
@@ -213,13 +171,27 @@
         });
     });
 
-    $("#btnGetAll").click(function(){
+    function getAllCustomers(){
+        $("#tblCustomer").empty();
         $.ajax({
             url:"Customer",
             success:function(res){
-                console.log(res);
+                for (let c of res) {
+                    let cusID=c.id;
+                    let cusName=c.name;
+                    let cusAddress=c.address;
+                    let cusSalary=c.salary;
+
+                    let row ="<tr><td>"+cusID+"</td><td>"+cusName+"</td><td>"+cusAddress+"</td><td>"+cusSalary+"</td></tr>";
+                    $("#tblCustomer").append(row);
+                }
+                bindRowClickEvents();
             }
         });
+    }
+
+    $("#btnGetAll").click(function(){
+        getAllCustomers();
     });
 
 </script>
