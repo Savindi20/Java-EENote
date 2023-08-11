@@ -117,29 +117,11 @@
 <script src="assets/js/bootstrap.min.js"></script>
 
 <script>
+    //load all customers from database
     getAllCustomers();
 
-    function setTextFieldValues(id,name,address,salary){
-        $('#txtCustomerID').val(id);
-        $('#txtCustomerName').val(name);
-        $('#txtCustomerAddress').val(address);
-        $('#txtCustomerSalary').val(salary);
-    }
-
-    function bindRowClickEvents(){
-        $("#tblCustomer>tr").click(function (){
-            let id = $(this).children(":eq(0)").text();
-            let name = $(this).children(":eq(1)").text();
-            let address = $(this).children(":eq(2)").text();
-            let salary = $(this).children(":eq(3)").text();
-
-            $('#txtCustomerID').val(id);
-            $('#txtCustomerName').val(name);
-            $('#txtCustomerAddress').val(address);
-            $('#txtCustomerSalary').val(salary);
-        });
-    }
-
+    //Button events
+    // add Customer
     $("#btnCustomer").click(function(){
         let formData = $("#CustomerForm").serialize();
         $.ajax({
@@ -152,6 +134,7 @@
         });
     });
 
+    //delete customer
     $("#btnCusDelete").click(function(){
         let id = $("#txtCustomerID").val();
         $.ajax({
@@ -163,6 +146,7 @@
         });
     });
 
+    //update customer
     $("#btnUpdate").click(function(){
         let formData = $("#CustomerForm").serialize();
         $.ajax({
@@ -175,6 +159,12 @@
         });
     });
 
+    //getAll customer
+    $("#btnGetAll").click(function(){
+        getAllCustomers();
+    });
+
+    //getAll customer function
     function getAllCustomers(){
         $("#tblCustomer").empty();
         $.ajax({
@@ -195,9 +185,28 @@
         });
     }
 
-    $("#btnGetAll").click(function(){
-        getAllCustomers();
-    });
+    //bind events for the table rows function
+    function bindRowClickEvents(){
+        $("#tblCustomer>tr").click(function (){
+            let id = $(this).children(":eq(0)").text();
+            let name = $(this).children(":eq(1)").text();
+            let address = $(this).children(":eq(2)").text();
+            let salary = $(this).children(":eq(3)").text();
+
+            $('#txtCustomerID').val(id);
+            $('#txtCustomerName').val(name);
+            $('#txtCustomerAddress').val(address);
+            $('#txtCustomerSalary').val(salary);
+        });
+    }
+
+    //set text fields values function
+    function setTextFieldValues(id,name,address,salary){
+        $('#txtCustomerID').val(id);
+        $('#txtCustomerName').val(name);
+        $('#txtCustomerAddress').val(address);
+        $('#txtCustomerSalary').val(salary);
+    }
 
 </script>
 </body>
