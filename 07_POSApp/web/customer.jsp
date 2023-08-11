@@ -119,12 +119,13 @@
 <script>
     getAllCustomers();
 
-    function setTextfieldValues(id,name,address,salary){
+    function setTextFieldValues(id,name,address,salary){
         $('#txtCustomerID').val(id);
         $('#txtCustomerName').val(name);
         $('#txtCustomerAddress').val(address);
         $('#txtCustomerSalary').val(salary);
     }
+
     function bindRowClickEvents(){
         $("#tblCustomer>tr").click(function (){
             let id = $(this).children(":eq(0)").text();
@@ -146,6 +147,7 @@
             method:"post",
             data:formData,
             success:function(res){
+                getAllCustomers();
             }
         });
     });
@@ -156,6 +158,7 @@
             url:"Customer?id="+id+"&option=remove",
             method:"post",
             success:function(res){
+                getAllCustomers();
             }
         });
     });
@@ -167,6 +170,7 @@
             method:"post",
             data:formData,
             success:function(res){
+                getAllCustomers();
             }
         });
     });
@@ -186,6 +190,7 @@
                     $("#tblCustomer").append(row);
                 }
                 bindRowClickEvents();
+                setTextFieldValues("","","","");
             }
         });
     }
