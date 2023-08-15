@@ -1,5 +1,8 @@
 package servlet;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,19 +20,19 @@ public class CustomerServlet extends HttpServlet {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/posdb", "root", "1234");
             PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customer");
             ResultSet rst = pstm.executeQuery();
-            String jsonArray ="[";
+            JsonArrayBuilder allCustomers = Json.createArrayBuilder();
+
             while (rst.next()) {
-                String id = rst.getString("id");
-                String name = rst.getString("name");
-                String address = rst.getString("address");
-                double salary = rst.getDouble("salary");
-                jsonArray+="{\"id\":\""+id+"\",\"name\":\""+name+"\",\"address\":\""+address+"\",\"salary\":"+salary+"},";
+                JsonObjectBuilder customer = Json.createObjectBuilder();
+                customer.add("id",rst.getString("id"));
+                customer.add("name",rst.getString("name"));
+                customer.add("address",rst.getString("address"));
+                customer.add("salary",rst.getDouble("salary"));
+                allCustomers.add(customer.build());
             }
-            String finalArray = jsonArray.substring(0, jsonArray.length() - 1);
-            finalArray+="]";
 
             resp.addHeader("Content-Type","application/json");
-            resp.getWriter().write(finalArray);
+            resp.getWriter().print(allCustomers.build());
 
 //            resp.sendRedirect("customer.jsp");
 //            req.setAttribute("customers",allCustomers);
