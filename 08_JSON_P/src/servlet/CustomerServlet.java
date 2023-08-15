@@ -1,8 +1,6 @@
 package servlet;
 
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +11,9 @@ import java.sql.*;
 
 @WebServlet(urlPatterns = "/Customer")
 public class CustomerServlet extends HttpServlet {
+
+    //query string
+    //form Data (x-www-form-urlencoded)
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -34,51 +35,66 @@ public class CustomerServlet extends HttpServlet {
             resp.addHeader("Content-Type","application/json");
             resp.getWriter().print(allCustomers.build());
 
-//            resp.sendRedirect("customer.jsp");
-//            req.setAttribute("customers",allCustomers);
-//            req.getRequestDispatcher("customer.jsp").forward(req,resp);
-
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
 
+    //query string
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
         String name = req.getParameter("name");
         String address = req.getParameter("address");
-        String option=req.getParameter("option");
-
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/posdb", "root", "1234");
+            double salary = Double.parseDouble(req.getParameter("salary"));
+            PreparedStatement pstm = connection.prepareStatement("insert into Customer values(?,?,?,?)");
+            pstm.setObject(1,id);
+            pstm.setObject(2,name);
+            pstm.setObject(3,address);
+            pstm.setObject(4,salary);
+            boolean b = pstm.executeUpdate() > 0;
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-            if(option.equals("add")){
-                double salary = Double.parseDouble(req.getParameter("salary"));
-                PreparedStatement pstm = connection.prepareStatement("insert into Customer values(?,?,?,?)");
-                pstm.setObject(1,id);
-                pstm.setObject(2,name);
-                pstm.setObject(3,address);
-                pstm.setObject(4,salary);
-                boolean b = pstm.executeUpdate() > 0;
-//            PrintWriter writer = resp.getWriter();
-//            writer.write("<h1>Customer added state : "+b+"</h1>");
+    //query string
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/posdb", "root", "1234");
+            PreparedStatement pstm = connection.prepareStatement("delete from Customer where id=?");
+            pstm.setObject(1,id);
+            boolean b = pstm.executeUpdate() > 0;
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-            }else if(option.equals("remove")){
-                PreparedStatement pstm = connection.prepareStatement("delete from Customer where id=?");
-                pstm.setObject(1,id);
-                boolean b = pstm.executeUpdate() > 0;
+    // json or query string
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        JsonReader reader = Json.createReader(req.getReader());
+        JsonObject customer = reader.readObject();
+        String id = customer.getString("id");
+        String name = customer.getString("name");
+        String address = customer.getString("address");
+        String salary = customer.getString("salary");
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/posdb", "root", "1234");
+            PreparedStatement pstm = connection.prepareStatement("update Customer set name=?,address=?,salary=? where id=?");
+            pstm.setObject(4,id);
+            pstm.setObject(1,name);
+            pstm.setObject(2,address);
+            pstm.setObject(3,salary);
+            boolean b = pstm.executeUpdate() > 0;
 
-            }else if(option.equals("update")){
-                double salary = Double.parseDouble(req.getParameter("salary"));
-                PreparedStatement pstm = connection.prepareStatement("update Customer set name=?,address=?,salary=? where id=?");
-                pstm.setObject(4,id);
-                pstm.setObject(1,name);
-                pstm.setObject(2,address);
-                pstm.setObject(3,salary);
-                boolean b = pstm.executeUpdate() > 0;
-            }
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }

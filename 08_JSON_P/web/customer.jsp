@@ -125,7 +125,7 @@
     $("#btnCustomer").click(function(){
         let formData = $("#CustomerForm").serialize();
         $.ajax({
-            url:"Customer?option=add",
+            url:"Customer",
             method:"post",
             data:formData,
             success:function(res){
@@ -138,8 +138,8 @@
     $("#btnCusDelete").click(function(){
         let id = $("#txtCustomerID").val();
         $.ajax({
-            url:"Customer?id="+id+"&option=remove",
-            method:"post",
+            url:"Customer?id="+id,
+            method:"delete",
             success:function(res){
                 getAllCustomers();
             }
@@ -148,11 +148,21 @@
 
     //update customer
     $("#btnUpdate").click(function(){
-        let formData = $("#CustomerForm").serialize();
+        let cusId = $('#txtCustomerID').val();
+        let cusName = $('#txtCustomerName').val();
+        let cusAddress = $('#txtCustomerAddress').val();
+        let cusSalary = $('#txtCustomerSalary').val();
+        var customerOb = {
+            id:cusId,
+            name:cusName,
+            address:cusAddress,
+            salary:cusSalary
+        }
         $.ajax({
-            url:"Customer?option=update",
-            method:"post",
-            data:formData,
+            url:"Customer",
+            method:"put",
+            contentType:"application/json",
+            data:JSON.stringify(customerOb),
             success:function(res){
                 getAllCustomers();
             }
