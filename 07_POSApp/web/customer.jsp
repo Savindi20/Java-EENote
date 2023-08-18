@@ -39,7 +39,7 @@
         <li class="list-group-item bg-white" id="lnkHome"><a href="index.html">Home</a></li>
         <li class="list-group-item bg-danger text-white" id="lnkCustomer"><a class="text-white" href="customer.jsp">Customer</a>
         </li>
-        <li class="list-group-item bg-white" id="lnkItem"><a href="item.html">Item</a></li>
+        <li class="list-group-item bg-white" id="lnkItem"><a href="item.jsp">Item</a></li>
         <li class="list-group-item bg-white" id="lnkOrders"><a href="purchase-order.html">Orders</a></li>
     </ul>
 </header>

@@ -5,10 +5,11 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="07_POSApp" />
+          <element id="module-output" name="08_JSON_P" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="mysql-connector-j-8.1.0" />
-          <element id="library" level="project" name="javax.json-1.1.4" />
+          <element id="library" level="project" name="javax.json-api-1.1.4" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="07_POSApp/web/Web" />

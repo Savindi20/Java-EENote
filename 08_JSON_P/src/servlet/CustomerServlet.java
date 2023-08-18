@@ -12,8 +12,9 @@ import java.sql.*;
 @WebServlet(urlPatterns = "/Customer")
 public class CustomerServlet extends HttpServlet {
 
-    //query string
-    //form Data (x-www-form-urlencoded)
+//    query string
+//    form Data (x-www-form-urlencoded)
+//    JSON
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -40,7 +41,8 @@ public class CustomerServlet extends HttpServlet {
         }
     }
 
-    //query string
+//    query string
+//    JSON
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
@@ -61,7 +63,8 @@ public class CustomerServlet extends HttpServlet {
         }
     }
 
-    //query string
+//    query string
+//    JSON
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
@@ -76,7 +79,8 @@ public class CustomerServlet extends HttpServlet {
         }
     }
 
-    // json or query string
+//    query string
+//    JSON
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         JsonReader reader = Json.createReader(req.getReader());
