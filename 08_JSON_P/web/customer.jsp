@@ -128,8 +128,17 @@
             url:"Customer",
             method:"post",
             data:formData,
+            dataType:"json",
             success:function(res){
+                console.log("success Method Invoked");
+                console.log(res);
+                alert(res.message);
                 getAllCustomers();
+            },
+            error:function (error){
+                console.log("Error Method Invoked");
+                console.log(JSON.parse(error.responseText));
+                alert(JSON.parse(error.responseText).message);
             }
         });
     });
@@ -140,8 +149,13 @@
         $.ajax({
             url:"Customer?id="+id,
             method:"delete",
-            success:function(res){
+            success:function(resp){
                 getAllCustomers();
+                alert(resp.message);
+            },
+            error:function (error){
+                let message = JSON.parse(error.responseText).message;
+                alert(message);
             }
         });
     });
