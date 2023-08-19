@@ -32,12 +32,21 @@ public class CustomerServlet extends HttpServlet {
                 customer.add("salary", rst.getDouble("salary"));
                 allCustomers.add(customer.build());
             }
-
             resp.addHeader("Content-Type","application/json");
-            resp.getWriter().print(allCustomers.build());
 
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            JsonObjectBuilder job = Json.createObjectBuilder();
+            job.add("state","OK");
+            job.add("message","Successfully Loaded..!");
+            job.add("data",allCustomers.build());
+            resp.getWriter().print(job.build());
+
+        }catch (ClassNotFoundException | SQLException e){
+            JsonObjectBuilder rjo = Json.createObjectBuilder();
+            rjo.add("state","Error");
+            rjo.add("message",e.getLocalizedMessage());
+            rjo.add("data","");
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.getWriter().print(rjo.build());
         }
     }
 
@@ -142,9 +151,30 @@ public class CustomerServlet extends HttpServlet {
             pstm.setObject(2,address);
             pstm.setObject(3,salary);
             boolean b = pstm.executeUpdate() > 0;
+            if (b){
+                JsonObjectBuilder responseObject = Json.createObjectBuilder();
+                responseObject.add("state","Ok");
+                responseObject.add("message","Successfully Updated..!");
+                responseObject.add("data","");
+                resp.getWriter().print(responseObject.build());
+            }else{
+                throw new RuntimeException("Wrong ID, Please check the ID..!");
+            }
 
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new RuntimeException(e);
+        } catch (RuntimeException e) {
+            JsonObjectBuilder rjo = Json.createObjectBuilder();
+            rjo.add("state","Error");
+            rjo.add("message",e.getLocalizedMessage());
+            rjo.add("data","");
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().print(rjo.build());
+        }catch (ClassNotFoundException | SQLException e){
+            JsonObjectBuilder rjo = Json.createObjectBuilder();
+            rjo.add("state","Error");
+            rjo.add("message",e.getLocalizedMessage());
+            rjo.add("data","");
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.getWriter().print(rjo.build());
         }
     }
 }

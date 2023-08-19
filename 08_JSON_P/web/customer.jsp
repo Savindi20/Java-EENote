@@ -117,6 +117,7 @@
 <script src="assets/js/bootstrap.min.js"></script>
 
 <script>
+
     //load all customers from database
     getAllCustomers();
 
@@ -177,8 +178,14 @@
             method:"put",
             contentType:"application/json",
             data:JSON.stringify(customerOb),
-            success:function(res){
+            dataType: "json",
+            success:function(resp){
                 getAllCustomers();
+                alert(resp.message);
+            },
+            error:function (error){
+                let message = JSON.parse(error.responseText).message;
+                alert(message);
             }
         });
     });
@@ -194,7 +201,7 @@
         $.ajax({
             url:"Customer",
             success:function(res){
-                for (let c of res) {
+                for (let c of res.data) {
                     let cusID=c.id;
                     let cusName=c.name;
                     let cusAddress=c.address;
@@ -205,6 +212,10 @@
                 }
                 bindRowClickEvents();
                 setTextFieldValues("","","","");
+            },
+            error:function (error){
+                let message = JSON.parse(error.responseText).message;
+                alert(message);
             }
         });
     }
