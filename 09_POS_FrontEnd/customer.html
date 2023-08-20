@@ -93,6 +93,7 @@
 <script src="assets/js/bootstrap.min.js"></script>
 
 <script>
+    let baseUrl="http://localhost:8081/08_jsonp/";
 
     //load all customers from database
     getAllCustomers();
@@ -102,7 +103,7 @@
     $("#btnCustomer").click(function () {
         let formData = $("#CustomerForm").serialize();
         $.ajax({
-            url: "Customer",
+            url: baseUrl+"Customer",
             method: "post",
             data: formData,
             dataType: "json",
@@ -124,7 +125,7 @@
     $("#btnCusDelete").click(function () {
         let id = $("#txtCustomerID").val();
         $.ajax({
-            url: "Customer?id=" + id,
+            url: baseUrl+"Customer?id=" + id,
             method: "delete",
             success: function (resp) {
                 getAllCustomers();
@@ -150,7 +151,7 @@
             salary: cusSalary
         }
         $.ajax({
-            url: "Customer",
+            url: baseUrl+"Customer",
             method: "put",
             contentType: "application/json",
             data: JSON.stringify(customerOb),
@@ -175,7 +176,7 @@
     function getAllCustomers() {
         $("#tblCustomer").empty();
         $.ajax({
-            url: "Customer",
+            url: baseUrl+"Customer",
             success: function (res) {
                 for (let c of res.data) {
                     let cusID = c.id;
