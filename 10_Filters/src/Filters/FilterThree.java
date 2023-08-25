@@ -16,7 +16,9 @@ public class FilterThree implements Filter {
         System.out.println(" Filter Three Do Method Invoked");
         String name = servletRequest.getParameter("name");
         if (name.equals("ijse")){
+            //dispatch request to the servlet
             filterChain.doFilter(servletRequest,servletResponse);
+            servletResponse.getWriter().write("<h1>Authenticated User</h1>");
         }else {
             servletResponse.getWriter().write("<h1>Non Authenticated User</h1>");
         }
