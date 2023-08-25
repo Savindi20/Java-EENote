@@ -4,8 +4,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/a")
-public class FilterOne implements Filter {
+@WebFilter(urlPatterns = "/b")
+public class FilterTwo implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         System.out.println("Filter One Initialized");
@@ -13,7 +13,7 @@ public class FilterOne implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("Filter One Do Method Invoked");
+        System.out.println(" Filter Two Do Method Invoked");
     }
 
     @Override
