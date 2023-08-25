@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/b")
+//@WebFilter(urlPatterns = "/b")
 public class FilterThree implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -18,6 +18,7 @@ public class FilterThree implements Filter {
         if (name.equals("ijse")){
             //dispatch request to the servlet
             filterChain.doFilter(servletRequest,servletResponse);
+            //append the response
             servletResponse.getWriter().write("<h1>Authenticated User</h1>");
         }else {
             servletResponse.getWriter().write("<h1>Non Authenticated User</h1>");
