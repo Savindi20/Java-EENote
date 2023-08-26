@@ -19,14 +19,18 @@ public class DefaultFilter implements Filter {
         //b?name=ijse ---> dispatch b
         String name = servletRequest.getParameter("name");
 
+        //cast servletRequest to HttpServletRequest
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         String servletPath = req.getServletPath();
-        System.out.println(name+" "+servletPath);
+
         if(name.equals("ijse")&&servletPath.equals("/a")){
+            //proceed to servlet
             filterChain.doFilter(servletRequest,servletResponse);
         }else if (name.equals("ijse")&&servletPath.equals("/b")){
+            //proceed to servlet
             filterChain.doFilter(servletRequest,servletResponse);
         }else {
+            //refuse
             servletResponse.getWriter().write("<h1>Case</h1>");
         }
     }
