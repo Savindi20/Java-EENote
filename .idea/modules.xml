@@ -12,6 +12,7 @@
       <module fileurl="file://$PROJECT_DIR$/09_Filters/09_Filters.iml" filepath="$PROJECT_DIR$/09_Filters/09_Filters.iml" />
       <module fileurl="file://$PROJECT_DIR$/10_POS_BackEnd/10_POS_BackEnd.iml" filepath="$PROJECT_DIR$/10_POS_BackEnd/10_POS_BackEnd.iml" />
       <module fileurl="file://$PROJECT_DIR$/10_POS_FrontEnd/10_POS_FrontEnd.iml" filepath="$PROJECT_DIR$/10_POS_FrontEnd/10_POS_FrontEnd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/11_DBCP/11_DBCP.iml" filepath="$PROJECT_DIR$/11_DBCP/11_DBCP.iml" />
       <module fileurl="file://$PROJECT_DIR$/O6_AJAX/O6_AJAX.iml" filepath="$PROJECT_DIR$/O6_AJAX/O6_AJAX.iml" />
     </modules>
   </component>
