@@ -9,8 +9,9 @@
       <module fileurl="file://$PROJECT_DIR$/05_Mapping-spec/05_Mapping-spec.iml" filepath="$PROJECT_DIR$/05_Mapping-spec/05_Mapping-spec.iml" />
       <module fileurl="file://$PROJECT_DIR$/07_POSApp/07_POSApp.iml" filepath="$PROJECT_DIR$/07_POSApp/07_POSApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/08_JSON_P/08_JSON_P.iml" filepath="$PROJECT_DIR$/08_JSON_P/08_JSON_P.iml" />
-      <module fileurl="file://$PROJECT_DIR$/09_POS_FrontEnd/09_POS_FrontEnd.iml" filepath="$PROJECT_DIR$/09_POS_FrontEnd/09_POS_FrontEnd.iml" />
-      <module fileurl="file://$PROJECT_DIR$/10_Filters/10_Filters.iml" filepath="$PROJECT_DIR$/10_Filters/10_Filters.iml" />
+      <module fileurl="file://$PROJECT_DIR$/09_Filters/09_Filters.iml" filepath="$PROJECT_DIR$/09_Filters/09_Filters.iml" />
+      <module fileurl="file://$PROJECT_DIR$/10_POS_BackEnd/10_POS_BackEnd.iml" filepath="$PROJECT_DIR$/10_POS_BackEnd/10_POS_BackEnd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/10_POS_FrontEnd/10_POS_FrontEnd.iml" filepath="$PROJECT_DIR$/10_POS_FrontEnd/10_POS_FrontEnd.iml" />
       <module fileurl="file://$PROJECT_DIR$/O6_AJAX/O6_AJAX.iml" filepath="$PROJECT_DIR$/O6_AJAX/O6_AJAX.iml" />
     </modules>
   </component>

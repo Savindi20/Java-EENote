@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="09_filter">
+    <output-path>$PROJECT_DIR$/out/artifacts/09_filter</output-path>
+    <root id="archive" name="09_filter.war">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="09_Filters" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="09_Filters/web/Web" />
+    </root>
+  </artifact>
+</component>
