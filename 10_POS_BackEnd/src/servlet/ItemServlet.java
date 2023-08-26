@@ -176,5 +176,4 @@ public class ItemServlet extends HttpServlet {
             resp.getWriter().print(rjo.build());
         }
     }
-
 }
