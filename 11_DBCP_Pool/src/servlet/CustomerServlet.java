@@ -24,8 +24,7 @@ public class CustomerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ServletContext servletContext = getServletContext();
-        try(Connection connection = ((BasicDataSource) servletContext.getAttribute("dbcp")).getConnection();) {
+        try(Connection connection = ((BasicDataSource) getServletContext().getAttribute("dbcp")).getConnection()){
 //            // How to configure DBCP pool
 //            BasicDataSource bds = new BasicDataSource();
 //            bds.setDriverClassName("com.mysql.jdbc.Driver");
@@ -80,8 +79,7 @@ public class CustomerServlet extends HttpServlet {
         String address = req.getParameter("address");
         String salary = req.getParameter("salary");
 
-        BasicDataSource dbcp = (BasicDataSource) getServletContext().getAttribute("dbcp");
-        try(Connection connection = dbcp.getConnection();){
+        try(Connection connection = ((BasicDataSource) getServletContext().getAttribute("dbcp")).getConnection()){
 //            Class.forName("com.mysql.jdbc.Driver");
 //            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/posdb", "root", "1234");
 
@@ -115,8 +113,7 @@ public class CustomerServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
 
-        BasicDataSource dbcp = (BasicDataSource) getServletContext().getAttribute("dbcp");
-        try(Connection connection = dbcp.getConnection();){
+        try(Connection connection = ((BasicDataSource) getServletContext().getAttribute("dbcp")).getConnection()){
             PreparedStatement pstm = connection.prepareStatement("delete from Customer where id=?");
             pstm.setObject(1,id);
             boolean b = pstm.executeUpdate() > 0;
@@ -157,8 +154,7 @@ public class CustomerServlet extends HttpServlet {
         String address = customer.getString("address");
         String salary = customer.getString("salary");
 
-        BasicDataSource dbcp = (BasicDataSource) getServletContext().getAttribute("dbcp");
-        try(Connection connection = dbcp.getConnection();){
+        try(Connection connection = ((BasicDataSource) getServletContext().getAttribute("dbcp")).getConnection()){
             PreparedStatement pstm = connection.prepareStatement("update Customer set name=?,address=?,salary=? where id=?");
             pstm.setObject(4,id);
             pstm.setObject(1,name);
