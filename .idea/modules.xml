@@ -15,6 +15,7 @@
       <module fileurl="file://$PROJECT_DIR$/11_DBCP/11_DBCP.iml" filepath="$PROJECT_DIR$/11_DBCP/11_DBCP.iml" />
       <module fileurl="file://$PROJECT_DIR$/11_DBCP_Pool/11_DBCP_Pool.iml" filepath="$PROJECT_DIR$/11_DBCP_Pool/11_DBCP_Pool.iml" />
       <module fileurl="file://$PROJECT_DIR$/12_Listeners/12_Listeners.iml" filepath="$PROJECT_DIR$/12_Listeners/12_Listeners.iml" />
+      <module fileurl="file://$PROJECT_DIR$/13_Inbuilt_CP/13_Inbuilt_CP.iml" filepath="$PROJECT_DIR$/13_Inbuilt_CP/13_Inbuilt_CP.iml" />
       <module fileurl="file://$PROJECT_DIR$/O6_AJAX/O6_AJAX.iml" filepath="$PROJECT_DIR$/O6_AJAX/O6_AJAX.iml" />
     </modules>
   </component>
