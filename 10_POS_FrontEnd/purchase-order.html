@@ -241,6 +241,9 @@
 
     function loadAllItems(){
         $("#selectItemCode").empty();
+        $.ajax({
+            url: baseUrl+"Item",
+        });
     }
 
 </script>
