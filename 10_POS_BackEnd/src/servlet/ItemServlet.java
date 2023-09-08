@@ -1,6 +1,7 @@
 package servlet;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import util.ResponseUtil;
 
 import javax.json.*;
 import javax.servlet.ServletException;
@@ -14,7 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet(urlPatterns = "/Item")
+@WebServlet(urlPatterns = "/item")
 public class ItemServlet extends HttpServlet {
 
 //    query string
@@ -37,19 +38,15 @@ public class ItemServlet extends HttpServlet {
                 allItems.add(item.build());
             }
 
-            JsonObjectBuilder job = Json.createObjectBuilder();
-            job.add("state","OK");
-            job.add("message","Successfully Loaded..!");
-            job.add("data",allItems.build());
-            resp.getWriter().print(job.build());
+            resp.getWriter().print(ResponseUtil.genJson("Success", "Loaded", allItems.build()));
+        } catch (RuntimeException e) {
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.genJson("Error", e.getMessage()));
 
-        }catch (SQLException e){
-            JsonObjectBuilder rjo = Json.createObjectBuilder();
-            rjo.add("state","Error");
-            rjo.add("message",e.getLocalizedMessage());
-            rjo.add("data","");
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().print(rjo.build());
+        } catch (SQLException e) {
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.genJson("Error", e.getMessage()));
+
         }
     }
 
@@ -68,22 +65,19 @@ public class ItemServlet extends HttpServlet {
             pstm.setObject(2,description);
             pstm.setObject(3,qtyOnHand);
             pstm.setObject(4,unitPrice);
-            boolean b = pstm.executeUpdate() > 0;
-            if (b){
-                JsonObjectBuilder responseObject = Json.createObjectBuilder();
-                responseObject.add("state","Ok");
-                responseObject.add("message","Successfully added..!");
-                responseObject.add("data","");
-                resp.getWriter().print(responseObject.build());
+
+            if (pstm.executeUpdate() > 0) {
+                resp.getWriter().print(ResponseUtil.genJson("Success", "Successfully Added.!"));
             }
-        }catch (SQLException e) {
-            JsonObjectBuilder error = Json.createObjectBuilder();
-            error.add("state","Error");
-            error.add("message",e.getLocalizedMessage());
-            error.add("data","");
-//            resp.setStatus(400);
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().print(error.build());
+
+        } catch (RuntimeException e) {
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.genJson("Error", e.getMessage()));
+
+        } catch (SQLException e) {
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.genJson("Error", e.getMessage()));
+
         }
     }
 
@@ -95,30 +89,20 @@ public class ItemServlet extends HttpServlet {
         try(Connection connection = ((BasicDataSource) getServletContext().getAttribute("dbcp")).getConnection()){
             PreparedStatement pstm = connection.prepareStatement("delete from Item where code=?");
             pstm.setObject(1,code);
-            boolean b = pstm.executeUpdate() > 0;
-            if (b) {
-                JsonObjectBuilder rjo = Json.createObjectBuilder();
-                rjo.add("state","Ok");
-                rjo.add("message","Successfully Deleted..!");
-                rjo.add("data","");
-                resp.getWriter().print(rjo.build());
-            }else {
-                throw new RuntimeException("There is no Item for that ID..!");
+
+            if (pstm.executeUpdate() > 0) {
+                resp.getWriter().print(ResponseUtil.genJson("Success", "Item Deleted..!"));
+            }else{
+                resp.getWriter().print(ResponseUtil.genJson("Failed", "Item Delete Failed..!"));
             }
         } catch (RuntimeException e) {
-            JsonObjectBuilder rjo = Json.createObjectBuilder();
-            rjo.add("state","Error");
-            rjo.add("message",e.getLocalizedMessage());
-            rjo.add("data","");
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().print(rjo.build());
-        }catch (SQLException e){
-            JsonObjectBuilder rjo = Json.createObjectBuilder();
-            rjo.add("state","Error");
-            rjo.add("message",e.getLocalizedMessage());
-            rjo.add("data","");
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().print(rjo.build());
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.genJson("Error", e.getMessage()));
+
+        } catch (SQLException e) {
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.genJson("Error", e.getMessage()));
+
         }
     }
 
@@ -128,6 +112,7 @@ public class ItemServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject item = reader.readObject();
+
         String code = item.getString("code");
         String description = item.getString("description");
         String qtyOnHand = item.getString("qtyOnHand");
@@ -138,31 +123,20 @@ public class ItemServlet extends HttpServlet {
             pstm.setObject(1,description);
             pstm.setObject(2,qtyOnHand);
             pstm.setObject(3,unitPrice);
-            boolean b = pstm.executeUpdate() > 0;
-            if (b){
-                JsonObjectBuilder responseObject = Json.createObjectBuilder();
-                responseObject.add("state","Ok");
-                responseObject.add("message","Successfully Updated..!");
-                responseObject.add("data","");
-                resp.getWriter().print(responseObject.build());
-            }else{
-                throw new RuntimeException("Wrong ID, Please check the ID..!");
-            }
 
+            if (pstm.executeUpdate() > 0) {
+                resp.getWriter().print(ResponseUtil.genJson("Success", "Item Updated..!"));
+            }else{
+                resp.getWriter().print(ResponseUtil.genJson("Failed", "Item Updated Failed..!"));
+            }
         } catch (RuntimeException e) {
-            JsonObjectBuilder rjo = Json.createObjectBuilder();
-            rjo.add("state","Error");
-            rjo.add("message",e.getLocalizedMessage());
-            rjo.add("data","");
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().print(rjo.build());
-        }catch (SQLException e){
-            JsonObjectBuilder rjo = Json.createObjectBuilder();
-            rjo.add("state","Error");
-            rjo.add("message",e.getLocalizedMessage());
-            rjo.add("data","");
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().print(rjo.build());
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.genJson("Error", e.getMessage()));
+
+        } catch (SQLException e) {
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.genJson("Error", e.getMessage()));
+
         }
     }
 }

@@ -1,6 +1,7 @@
 package servlet;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import util.ResponseUtil;
 
 import javax.json.*;
 import javax.servlet.ServletException;
@@ -52,20 +53,15 @@ public class CustomerServlet extends HttpServlet {
 
             // release the connection back to the pool
             // connection.close();
+            resp.getWriter().print(ResponseUtil.genJson("Success", "Loaded", allCustomers.build()));
+        } catch (RuntimeException e) {
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.genJson("Error", e.getMessage()));
 
-            JsonObjectBuilder job = Json.createObjectBuilder();
-            job.add("state","OK");
-            job.add("message","Successfully Loaded..!");
-            job.add("data",allCustomers.build());
-            resp.getWriter().print(job.build());
+        } catch (SQLException e) {
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.genJson("Error", e.getMessage()));
 
-        }catch (SQLException e){
-            JsonObjectBuilder rjo = Json.createObjectBuilder();
-            rjo.add("state","Error");
-            rjo.add("message",e.getLocalizedMessage());
-            rjo.add("data","");
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().print(rjo.build());
         }
     }
 
@@ -87,22 +83,18 @@ public class CustomerServlet extends HttpServlet {
             pstm.setObject(2,name);
             pstm.setObject(3,address);
             pstm.setObject(4,salary);
-            boolean b = pstm.executeUpdate() > 0;
-            if (b){
-                JsonObjectBuilder responseObject = Json.createObjectBuilder();
-                responseObject.add("state","Ok");
-                responseObject.add("message","Successfully added..!");
-                responseObject.add("data","");
-                resp.getWriter().print(responseObject.build());
+            if (pstm.executeUpdate() > 0) {
+                resp.getWriter().print(ResponseUtil.genJson("Success", "Successfully Added.!"));
             }
-        }catch (SQLException e) {
-            JsonObjectBuilder error = Json.createObjectBuilder();
-            error.add("state","Error");
-            error.add("message",e.getLocalizedMessage());
-            error.add("data","");
-//            resp.setStatus(400);
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().print(error.build());
+
+        } catch (RuntimeException e) {
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.genJson("Error", e.getMessage()));
+
+        } catch (SQLException e) {
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.genJson("Error", e.getMessage()));
+
         }
     }
 
@@ -115,30 +107,18 @@ public class CustomerServlet extends HttpServlet {
         try(Connection connection = ((BasicDataSource) getServletContext().getAttribute("dbcp")).getConnection()){
             PreparedStatement pstm = connection.prepareStatement("delete from Customer where id=?");
             pstm.setObject(1,id);
-            boolean b = pstm.executeUpdate() > 0;
-            if (b) {
-                JsonObjectBuilder rjo = Json.createObjectBuilder();
-                rjo.add("state","Ok");
-                rjo.add("message","Successfully Deleted..!");
-                rjo.add("data","");
-                resp.getWriter().print(rjo.build());
-            }else {
-                throw new RuntimeException("There is no Customer for that ID..!");
+            if (pstm.executeUpdate() > 0) {
+                resp.getWriter().print(ResponseUtil.genJson("Success", "Successfully Added.!"));
             }
+
         } catch (RuntimeException e) {
-            JsonObjectBuilder rjo = Json.createObjectBuilder();
-            rjo.add("state","Error");
-            rjo.add("message",e.getLocalizedMessage());
-            rjo.add("data","");
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().print(rjo.build());
-        }catch (SQLException e){
-            JsonObjectBuilder rjo = Json.createObjectBuilder();
-            rjo.add("state","Error");
-            rjo.add("message",e.getLocalizedMessage());
-            rjo.add("data","");
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().print(rjo.build());
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.genJson("Error", e.getMessage()));
+
+        } catch (SQLException e) {
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.genJson("Error", e.getMessage()));
+
         }
     }
 
@@ -159,31 +139,19 @@ public class CustomerServlet extends HttpServlet {
             pstm.setObject(1,name);
             pstm.setObject(2,address);
             pstm.setObject(3,salary);
-            boolean b = pstm.executeUpdate() > 0;
-            if (b){
-                JsonObjectBuilder responseObject = Json.createObjectBuilder();
-                responseObject.add("state","Ok");
-                responseObject.add("message","Successfully Updated..!");
-                responseObject.add("data","");
-                resp.getWriter().print(responseObject.build());
+            if (pstm.executeUpdate() > 0) {
+                resp.getWriter().print(ResponseUtil.genJson("Success", "Customer Updated..!"));
             }else{
-                throw new RuntimeException("Wrong ID, Please check the ID..!");
+                resp.getWriter().print(ResponseUtil.genJson("Failed", "Customer Updated Failed..!"));
             }
-
         } catch (RuntimeException e) {
-            JsonObjectBuilder rjo = Json.createObjectBuilder();
-            rjo.add("state","Error");
-            rjo.add("message",e.getLocalizedMessage());
-            rjo.add("data","");
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().print(rjo.build());
-        }catch (SQLException e){
-            JsonObjectBuilder rjo = Json.createObjectBuilder();
-            rjo.add("state","Error");
-            rjo.add("message",e.getLocalizedMessage());
-            rjo.add("data","");
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().print(rjo.build());
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.genJson("Error", e.getMessage()));
+
+        } catch (SQLException e) {
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.genJson("Error", e.getMessage()));
+
         }
     }
 }
