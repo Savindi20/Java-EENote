@@ -15,10 +15,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet(urlPatterns = "/item")
+@WebServlet(urlPatterns = "/Item")
 public class ItemServlet extends HttpServlet {
 
-//    query string
+    //    query string
 //    form Data (x-www-form-urlencoded)
 //    JSON
     @Override
@@ -50,7 +50,7 @@ public class ItemServlet extends HttpServlet {
         }
     }
 
-//    query string
+    //    query string
 //    JSON
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -81,7 +81,7 @@ public class ItemServlet extends HttpServlet {
         }
     }
 
-//    query string
+    //    query string
 //    JSON
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -106,7 +106,7 @@ public class ItemServlet extends HttpServlet {
         }
     }
 
-//    query string
+    //    query string
 //    JSON
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

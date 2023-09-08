@@ -243,7 +243,7 @@
     function loadAllItems() {
         $("#selectItemCode").empty();
         $.ajax({
-            url: BASE_URL + "item",
+            url: BASE_URL + "Item",
             headers:{
                 Auth:"user=admin,pass=admin"
             },
@@ -263,7 +263,7 @@
     function loadAllCustomers() {
         $("#selectCusID").empty();
         $.ajax({
-            url: BASE_URL + "customer",
+            url: BASE_URL + "Customer",
             dataType: "json",
             headers:{
                 Auth:"user=admin,pass=admin"
@@ -285,7 +285,7 @@
     function searchCustomer(cusID) {
         let response = "";
         $.ajax({
-            url: BASE_URL + "customer",
+            url: BASE_URL + "Customer",
             dataType: "json",
             async: false,
             headers:{
@@ -303,7 +303,7 @@
     function searchItem(code) {
         let response = "";
         $.ajax({
-            url: BASE_URL + "item",
+            url: BASE_URL + "Item",
             dataType: "json",
             async: false,
             headers:{
