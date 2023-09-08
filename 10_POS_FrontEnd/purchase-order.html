@@ -230,6 +230,19 @@
 
 
 <script src="assets/js/jquery-3.7.0.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script>
+    let baseUrl="http://localhost:8081/10_backend/";
 
+    loadAllItems();
+    loadAllCustomers();
+    setData();
+    SearchCustomer();
+
+    function loadAllItems(){
+        $("#selectItemCode").empty();
+    }
+
+</script>
 </body>
 </html>
